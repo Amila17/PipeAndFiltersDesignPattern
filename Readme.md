@@ -15,25 +15,25 @@ More information on the design pattern could be found at the following links:
 
 ## Implementation Explaination ##
 
-Domain model:
+###Domain model:###
 
 ```Withdrawal``` class is the domain model which contains a property named ``Amount``. 
 
 
-Filters:
+###Filters:###
 
 ```IFinancialRule<T>``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/IFinancialRule.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/IFinancialRule.cs)
 
 Is the programming contract for the filters that could be applied for any financial process eg: withdrawal or deposit.
 
-Implementations of the ```IFinancialRule<T>``` are:
+#####Implementations of the ```IFinancialRule<T>``` are:####
 
 
 - ```DailyLimit<Withdrawal>``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/DailyLimit.cs)
 - ```BelowMinimumAllowed<Withdrawal``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/BelowMinimumAllowed.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/BelowMinimumAllowed.cs)
 - ```AboveMaximumAllowed<Withdrawal``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/DailyLimit.cs)
 
-Pipe:
+###Pipe:###
 
 ```IPipeline<T>``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Pipeline/IPipeline.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Pipeline/IPipeline.cs) 
 
@@ -43,6 +43,8 @@ Is the programming contract for the pipeline that allows the registrations of th
 
 Is the implementation for the ```IPipeline<T>``` interface.
 
+
+###Composition ###
 
 The following code block demonstrates how all of the above code composes together to bring about the Pipe and Filters design pattern into action:
 
