@@ -43,15 +43,19 @@ Is the programming contract for the pipeline that allows the registrations of th
 
 Is the implementation for the ```IPipeline<T>``` interface.
 
+```Context<T>``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Pipeline/Context.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Pipeline/Context.cs)
+
+Is the class that carries any required objects through the pipeline. This class also keeps the state of any errors that occur during the filter execution process.
+
 
 ###Composition ###
 
 The following code block demonstrates how all of the above code composes together to bring about the Pipe and Filters design pattern into action:
 
 
-    //Valid withdrawal limit is :  amount > 100 and amount < 1000.
-	
-	var validWithdrawal = new Withdrawal() {Amount = 150};
+    //Valid withdrawal limit is amount > 100 and amount < 1000.
+
+    var validWithdrawal = new Withdrawal() {Amount = 150};
     var inValidWithdrawalLimit = new Withdrawal() {Amount = 50};
 
     IFinancialRule<Withdrawal> dailyLimit = new DailyLimit();
@@ -63,7 +67,13 @@ The following code block demonstrates how all of the above code composes togethe
         .Register(belowMinimumAllowed)
         .Register(aboveMaximumAllowed);
 
-	var result = withdrawalPipeline.Execute(validWithdrawal);
+    var validContext = new Context<Withdrawal>() {item = validWithdrawal};
+    var result = withdrawalPipeline.Execute(validContext);
+    Console.WriteLine(string.Format("The request for withdrawal is valid? {0}", result));
+
+    var invalidContext = new Context<Withdrawal> {item = inValidWithdrawalLimit};
+    result = withdrawalPipeline.Execute(invalidContext);
+    Console.WriteLine(string.Format("The request for the withdrawal is valid? {0}", result));
 
 
 
