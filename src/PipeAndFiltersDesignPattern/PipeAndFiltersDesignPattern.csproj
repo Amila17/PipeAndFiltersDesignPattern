@@ -32,6 +32,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Extras.Multitenant">
+      <HintPath>..\packages\Autofac.Extras.Multitenant.3.1.1\lib\net40\Autofac.Extras.Multitenant.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,19 +47,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Autofac.Tenant\SimpleTenantIdentificationStrategy.cs" />
     <Compile Include="DomainObjects\Withdrawal.cs" />
-    <Compile Include="Filters\Withdrawal\AboveMaximum.cs" />
-    <Compile Include="Filters\Withdrawal\BelowMinimumAllowed.cs" />
-    <Compile Include="Filters\Withdrawal\DailyLimit.cs" />
+    <Compile Include="Filters\Withdrawal\Site1\AboveMaximum1000.cs" />
+    <Compile Include="Filters\Withdrawal\Site2\AboveMaximum100.cs" />
+    <Compile Include="Filters\Withdrawal\Site2\BelowMinimumAllowed20.cs" />
+    <Compile Include="Filters\Withdrawal\Site1\BelowMinimumAllowed100.cs" />
+    <Compile Include="Filters\Withdrawal\Site2\DailyLimit50.cs" />
+    <Compile Include="Filters\Withdrawal\Site1\DailyLimit100.cs" />
     <Compile Include="Filters\IFinancialRule.cs" />
     <Compile Include="Pipeline\Context.cs" />
     <Compile Include="Pipeline\IPipeline.cs" />
     <Compile Include="Pipeline\Pipeline.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tenants\TenantName.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
