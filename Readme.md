@@ -28,10 +28,17 @@ Is the programming contract for the filters that could be applied for any financ
 
 #####Implementations of the ```IFinancialRule<T>``` are:####
 
+######Site1######
 
-- ```DailyLimit<Withdrawal>``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/DailyLimit.cs)
-- ```BelowMinimumAllowed<Withdrawal``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/BelowMinimumAllowed.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/BelowMinimumAllowed.cs)
-- ```AboveMaximumAllowed<Withdrawal``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/DailyLimit.cs)
+- ```DailyLimit<Withdrawal>100``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/DailyLimit.cs)
+- ```BelowMinimumAllowed<Withdrawal>100``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/BelowMinimumAllowed.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/BelowMinimumAllowed.cs)
+- ```AboveMaximumAllowed<Withdrawal>1000``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/DailyLimit.cs)
+
+######Site2
+
+- ```DailyLimit<Withdrawal>50``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit.cs)
+- ```BelowMinimumAllowed<Withdrawal>20``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/BelowMinimumAllowed.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/BelowMinimumAllowed.cs)
+- ```AboveMaximumAllowed<Withdrawal>100``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit.cs)
 
 ###Pipe:###
 
@@ -48,7 +55,16 @@ Is the implementation for the ```IPipeline<T>``` interface.
 Is the class that carries any required objects through the pipeline. This class also keeps the state of any errors that occur during the filter execution process.
 
 
-###Composition ###
+###Autofac Tenant Identification Strategy ###
+
+```SimpleTenantIdentificationStrategy``` implements ```ITenantIdentificationStrategy```. This class enables autofac to identify which tenant is in the current context of the application.
+
+
+
+
+###Composition###
+
+####Non IoC Composition####
 
 The following code block demonstrates how all of the above code composes together to bring about the Pipe and Filters design pattern into action:
 
@@ -74,6 +90,68 @@ The following code block demonstrates how all of the above code composes togethe
     var invalidContext = new Context<Withdrawal> {item = inValidWithdrawalLimit};
     result = withdrawalPipeline.Execute(invalidContext);
     Console.WriteLine(string.Format("The request for the withdrawal is valid? {0}", result));
+
+
+####IoC Composition####
+
+The following code block demonstrates how to register all of the above code with Autofac and use its ability to resolve different filters for different tenants with the use of Autofac.Multitenants package.
+
+	var builder = new ContainerBuilder();
+	
+	builder.RegisterType<Pipeline<Withdrawal>>().As<IPipeline<Withdrawal>>();
+	
+	var container = builder.Build();
+	
+	var tenantIdentifier = new SimpleTenantIdentificationStrategy();
+	
+	var mtc = new MultitenantContainer(tenantIdentifier, container);
+	
+	mtc.ConfigureTenant("1", cb => cb.Register(ctx => 
+	    new Pipeline<Withdrawal>()
+	    .Register(new DailyLimit100())
+	    .Register(new AboveMaximum1000())
+	    .Register(new BelowMinimumAllowed100())).As<IPipeline<Withdrawal>>());
+	
+	mtc.ConfigureTenant("2", cb => cb.Register(ctx => 
+	    new Pipeline<Withdrawal>()
+	    .Register(new DailyLimit50())
+	    .Register(new AboveMaximum100())
+	    .Register(new BelowMinimumAllowed20())).As<IPipeline<Withdrawal>>());
+	
+	
+	======== Tenant 1 (Site 1) Registrations ===========
+	tenantIdentifier.SetTenant(TenantName.Site1);
+	
+	var withdrawalPipelineTenant1 = mtc.Resolve<IPipeline<Withdrawal>>();
+	
+	//Valid withdrawal limit is amount > 100 and amount < 1000.
+	var validWithdrawal = new Withdrawal() { Amount = 150 };
+	var inValidWithdrawalLimit = new Withdrawal() { Amount = 50 };
+	
+	var validContext = new Context<Withdrawal>() { item = validWithdrawal };
+	var result = withdrawalPipelineTenant1.Execute(validContext);
+	Console.WriteLine(string.Format("The request for Tenant 1 withdrawal is valid? {0}", result));
+	
+	var invalidContext = new Context<Withdrawal> { item = inValidWithdrawalLimit };
+	result = withdrawalPipelineTenant1.Execute(invalidContext);
+	Console.WriteLine(string.Format("The request for Tenant 1 withdrawal is valid? {0}", result));
+	
+	========== Tenant 2 (Site 2) Registrations ===========
+	tenantIdentifier.SetTenant(TenantName.Site2);
+	
+	var withdrawalPipelineTenant2 = mtc.Resolve<IPipeline<Withdrawal>>();
+	
+	//Valid withdrawal limit is amount > 50 and amount < 100.
+	validWithdrawal = new Withdrawal() { Amount = 60 };
+	inValidWithdrawalLimit = new Withdrawal() { Amount = 10 };
+	
+	validContext = new Context<Withdrawal>() { item = validWithdrawal };
+	result = withdrawalPipelineTenant2.Execute(validContext);
+	Console.WriteLine(string.Format("The request for Tenant 2 withdrawal is valid? {0}", result));
+	
+	invalidContext = new Context<Withdrawal> { item = inValidWithdrawalLimit };
+	result = withdrawalPipelineTenant2.Execute(invalidContext);
+	Console.WriteLine(string.Format("The request for Tenant 2 withdrawal is valid? {0}", result));
 
 
 

@@ -85,6 +85,7 @@ namespace PipeAndFiltersDesignPattern
                 .Register(new BelowMinimumAllowed20())).As<IPipeline<Withdrawal>>());
 
 
+            //Tenant 1 (Site 1)
             tenantIdentifier.SetTenant(TenantName.Site1);
 
             var withdrawalPipelineTenant1 = mtc.Resolve<IPipeline<Withdrawal>>();
@@ -101,7 +102,7 @@ namespace PipeAndFiltersDesignPattern
             result = withdrawalPipelineTenant1.Execute(invalidContext);
             Console.WriteLine(string.Format("The request for Tenant 1 withdrawal is valid? {0}", result));
 
-
+            //Tenant 2 (Site 2)
             tenantIdentifier.SetTenant(TenantName.Site2);
 
             var withdrawalPipelineTenant2 = mtc.Resolve<IPipeline<Withdrawal>>();
