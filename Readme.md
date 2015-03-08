@@ -57,10 +57,13 @@ Is the class that carries any required objects through the pipeline. This class 
 
 ###Autofac Tenant Identification Strategy ###
 
-```SimpleTenantIdentificationStrategy``` implements ```ITenantIdentificationStrategy```. This class enables autofac to identify which tenant is in the current context of the application.
+```SimpleTenantIdentificationStrategy``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Autofac.Tenant/SimpleTenantIdentificationStrategy.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Autofac.Tenant/SimpleTenantIdentificationStrategy.cs) 
+
+Implements ```ITenantIdentificationStrategy```. This class enables autofac to identify which tenant is in the current context of the application.
 
 
 
+----------
 
 ###Composition###
 
