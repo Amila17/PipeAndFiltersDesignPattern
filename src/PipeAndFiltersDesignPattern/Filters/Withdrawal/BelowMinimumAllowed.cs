@@ -1,21 +1,16 @@
-﻿using System.Collections.Generic;
+﻿
+using PipeAndFiltersDesignPattern.Pipeline;
 
 namespace PipeAndFiltersDesignPattern.Filters.Withdrawal
 {
     public class BelowMinimumAllowed : IFinancialRule<DomainObjects.Withdrawal>
     {
-        public IEnumerable<string> Errors { get; set; }
-
-        public BelowMinimumAllowed()
-        {
-            Errors = new List<string>();
-        }
-        public void Execute(DomainObjects.Withdrawal item)
+        public void Execute(Context<DomainObjects.Withdrawal> context)
         {
             const int minimumAllowed = 100;
 
-            if (item.Amount < minimumAllowed)
-                Errors = new List<string> {"Withdrawal amount is less than minimum amount."};
+            if (context.item.Amount < minimumAllowed)
+                context.Errors.Add("Withdrawal amount is less than minimum amount.");
         }
     }
 }

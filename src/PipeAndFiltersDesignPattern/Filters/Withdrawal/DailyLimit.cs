@@ -1,22 +1,16 @@
 ﻿
-using System.Collections.Generic;
+using PipeAndFiltersDesignPattern.Pipeline;
 
 namespace PipeAndFiltersDesignPattern.Filters.Withdrawal
 {
     public class DailyLimit : IFinancialRule<DomainObjects.Withdrawal>
     {
-        public IEnumerable<string> Errors { get; set; }
-
-        public DailyLimit()
-        {
-            Errors = new List<string>();
-        }
-        public void Execute(DomainObjects.Withdrawal item)
+        public void Execute(Context<DomainObjects.Withdrawal> context)
         {
             const int dailyLimit = 100;
 
-            if (item.Amount < dailyLimit)
-                Errors = new List<string>() {"Withdrawal amount if less than the daily limit."};
+            if (context.item.Amount < dailyLimit)
+                context.Errors.Add("Withdrawal amount if less than the daily limit.");
         }
     }
 }

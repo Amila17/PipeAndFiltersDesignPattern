@@ -24,12 +24,13 @@ namespace PipeAndFiltersDesignPattern
                 .Register(belowMinimumAllowed)
                 .Register(aboveMaximumAllowed);
 
-            var result = withdrawalPipeline.Execute(validWithdrawal);
-            Console.WriteLine(string.Format("The result for the valid Withdrawal filter is: {0}", result));
+            var validContext = new Context<Withdrawal>() {item = validWithdrawal};
+            var result = withdrawalPipeline.Execute(validContext);
+            Console.WriteLine(string.Format("The request for withdrawal is valid? {0}", result));
 
-
-            result = withdrawalPipeline.Execute(inValidWithdrawalLimit);
-            Console.WriteLine(string.Format("The result for the invalid Withdrawal filter is: {0}", result));
+            var invalidContext = new Context<Withdrawal> {item = inValidWithdrawalLimit};
+            result = withdrawalPipeline.Execute(invalidContext);
+            Console.WriteLine(string.Format("The request for the withdrawal is valid? {0}", result));
 
             Console.ReadKey();
         }

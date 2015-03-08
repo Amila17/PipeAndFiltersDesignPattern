@@ -46,6 +46,7 @@
     <Compile Include="Filters\Withdrawal\BelowMinimumAllowed.cs" />
     <Compile Include="Filters\Withdrawal\DailyLimit.cs" />
     <Compile Include="Filters\IFinancialRule.cs" />
+    <Compile Include="Pipeline\Context.cs" />
     <Compile Include="Pipeline\IPipeline.cs" />
     <Compile Include="Pipeline\Pipeline.cs" />
     <Compile Include="Program.cs" />

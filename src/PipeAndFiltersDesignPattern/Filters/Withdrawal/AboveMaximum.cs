@@ -1,22 +1,15 @@
 ﻿
-
-using System.Collections.Generic;
+using PipeAndFiltersDesignPattern.Pipeline;
 
 namespace PipeAndFiltersDesignPattern.Filters.Withdrawal
 {
     public class AboveMaximum : IFinancialRule<DomainObjects.Withdrawal>
     {
-        public IEnumerable<string> Errors { get; set; }
-
-        public AboveMaximum()
-        {
-            Errors = new List<string>();
-        }
-        public void Execute(DomainObjects.Withdrawal item)
+        public void Execute(Context<DomainObjects.Withdrawal> context)
         {
             const int maximum = 1000;
-            if (item.Amount > maximum)
-                Errors = new List<string>() {"Withdrawal amount is greater than maximum"};
+            if (context.item.Amount > maximum)
+                context.Errors.Add("Withdrawal amount is greater than maximum");
         }
     }
 }

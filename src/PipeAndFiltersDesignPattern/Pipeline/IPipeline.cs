@@ -8,6 +8,6 @@ namespace PipeAndFiltersDesignPattern.Pipeline
         //This method is only if there is no IoC container usage.
         IPipeline<T> Register(IFinancialRule<T> financialRule);
 
-        bool Execute(T item);
+        bool Execute(Context<T> item);
     }
 }

@@ -1,11 +1,10 @@
 ﻿
-using System.Collections.Generic;
+using PipeAndFiltersDesignPattern.Pipeline;
 
 namespace PipeAndFiltersDesignPattern.Filters
 {
     public interface IFinancialRule<T>
     {
-        IEnumerable<string> Errors { get; set; } 
-        void Execute(T item);
+        void Execute(Context<T> context);
     }
 }

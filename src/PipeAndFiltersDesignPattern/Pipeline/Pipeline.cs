@@ -6,7 +6,7 @@ namespace PipeAndFiltersDesignPattern.Pipeline
 {
     public class Pipeline<T> : IPipeline<T>
     {
-        private List<IFinancialRule<T>> _financialRules;
+        private readonly List<IFinancialRule<T>> _financialRules;
 
         public Pipeline()
         {
@@ -20,16 +20,11 @@ namespace PipeAndFiltersDesignPattern.Pipeline
             return this;
         }
 
-        public bool Execute(T item)
+        public bool Execute(Context<T> item)
         {
-            var valid = true;
-            _financialRules.ForEach(x =>
-            {
-                x.Execute(item);
-                valid = !x.Errors.Any() && valid;
-            });
+            _financialRules.ForEach(x => x.Execute(item));
 
-            return valid;
+            return !item.Errors.Any();
         }
     }
 }
