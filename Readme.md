@@ -30,15 +30,15 @@ Is the programming contract for the filters that could be applied for any financ
 
 ######Site1######
 
-- ```DailyLimit<Withdrawal>100``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/DailyLimit.cs)
-- ```BelowMinimumAllowed<Withdrawal>100``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/BelowMinimumAllowed.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/BelowMinimumAllowed.cs)
-- ```AboveMaximumAllowed<Withdrawal>1000``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/DailyLimit.cs)
+- ```DailyLimit<Withdrawal>100``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/AboveMaximum1000.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/AboveMaximum1000.cs)
+- ```BelowMinimumAllowed<Withdrawal>100``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/BelowMinimumAllowed100.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/BelowMinimumAllowed100.cs)
+- ```AboveMaximumAllowed<Withdrawal>1000``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/DailyLimit1000.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site1/DailyLimit1000.cs)
 
 ######Site2
 
-- ```DailyLimit<Withdrawal>50``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit.cs)
-- ```BelowMinimumAllowed<Withdrawal>20``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/BelowMinimumAllowed.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/BelowMinimumAllowed.cs)
-- ```AboveMaximumAllowed<Withdrawal>100``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit.cs)
+- ```DailyLimit<Withdrawal>50``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit50.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit50.cs)
+- ```BelowMinimumAllowed<Withdrawal>20``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/BelowMinimumAllowed20.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/BelowMinimumAllowed20.cs)
+- ```AboveMaximumAllowed<Withdrawal>100``` - [https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit100.cs](https://github.com/Amila17/PipeAndFiltersDesignPattern/blob/master/src/PipeAndFiltersDesignPattern/Filters/Withdrawal/Site2/DailyLimit100.cs)
 
 ###Pipe:###
 
