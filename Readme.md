@@ -61,7 +61,7 @@ Is the class that carries any required objects through the pipeline. This class 
 
 Implements ```ITenantIdentificationStrategy```. This class enables autofac to identify which tenant is in the current context of the application. A ideal implementation would be to extract a value from the current http request to identify the tenant.
 
-More information on this could be found here: [http://autofac.readthedocs.org/en/latest/advanced/multitenant.html?highlight=multitenant#register-dependencies](http://autofac.readthedocs.org/en/latest/advanced/multitenant.html?highlight=multitenant#register-dependencies) 
+More information on this could be found here: [http://autofac.readthedocs.org/en/latest/advanced/multitenant.html?highlight=multitenant#tenant-identification](http://autofac.readthedocs.org/en/latest/advanced/multitenant.html?highlight=multitenant#tenant-identification) 
 
 
 ----------
